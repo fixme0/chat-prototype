@@ -6,7 +6,7 @@ const initialState = [];
 
 const messagesReducer = createReducer(initialState, (builder) => {
   builder.addCase(addMessage, (state, { payload: message }) => {
-    state.messages.push(message);
+    state.push(message);
   });
 });
 

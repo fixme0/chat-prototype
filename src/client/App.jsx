@@ -1,32 +1,27 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { getIsAuthenticated } from './services/user';
 
 import { Chat } from './components/chat/Chat';
 import { State } from './components/chat/State';
-import { Input } from './components/ui/Input';
-import { Button, BTN_TYPES } from './components/ui/Button';
+import { UserController } from './components/UserController';
 
-import styles from './styles';
+const App = () => {
+  const isAuthenticated = useSelector(getIsAuthenticated);
 
-const App = () => (
-  <Chat.Wrapper>
-    <Chat.Body>
-      <State.Login />
-    </Chat.Body>
-    <Chat.Footer className={styles.footerForm}>
-      <Input
-        className={styles.userNameControl}
-        inputClassName={styles.userNameInput}
-        placeholder="Nickname"
-      />
-      <Input
-        className={styles.messageControl}
-        placeholder="Message"
-      />
-      <Button className={styles.submitButton} type={BTN_TYPES.SUBMIT}>
-        Send
-      </Button>
-    </Chat.Footer>
-  </Chat.Wrapper>
-);
+  return (
+    <Chat.Wrapper>
+      <Chat.Body>
+        {!isAuthenticated && (
+          <State.Login />
+        )}
+      </Chat.Body>
+      <Chat.Footer>
+        <UserController />
+      </Chat.Footer>
+    </Chat.Wrapper>
+  );
+};
 
 export { App };

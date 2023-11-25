@@ -1,0 +1,18 @@
+.userNameControl {
+  width: 30%;
+  flex-shrink: 0;
+}
+.userNameInput {
+  border-right: 0;
+}
+.messageControl {
+  width: 50%;
+  flex-shrink: 0;
+}
+.submitButton {
+  width: 20%;
+  flex-shrink: 0;
+}
+.form {
+  display: flex;
+}

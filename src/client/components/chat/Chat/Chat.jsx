@@ -1,6 +1,5 @@
 import React from 'react';
 import T from 'prop-types';
-import classnames from 'classnames';
 
 import styles from './styles';
 
@@ -24,20 +23,16 @@ Wrapper.propTypes = {
   children: T.node.isRequired,
 };
 
-const Footer = ({ children, className, onSubmit }) => (
-  <form
-    action="#"
-    className={classnames(styles.footer, className)}
-    onSubmit={onSubmit}
+const Footer = ({ children }) => (
+  <div
+    className={styles.footer}
   >
     {children}
-  </form>
+  </div>
 );
 
 Footer.propTypes = {
   children: T.node.isRequired,
-  className: T.string,
-  onSubmit: T.func,
 };
 
 const Chat = {

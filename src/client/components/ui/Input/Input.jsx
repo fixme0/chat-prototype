@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import T from 'prop-types';
 import classnames from 'classnames';
 
@@ -9,16 +9,26 @@ const Input = ({
   error,
   inputClassName,
   placeholder,
+  value = '',
+  onChange,
 }) => (
   <div className={classnames(className, styles.root)}>
     { error && (
-    <span className={styles.error}>
-      {error}
-    </span>
+      <span className={styles.error}>
+        {error}
+      </span>
     ) }
     <input
       className={classnames(styles.input, inputClassName)}
       placeholder={placeholder}
+      value={value}
+      onChange={
+          onChange
+            ? (event) => {
+              onChange(event.target.value, event);
+            }
+            : undefined
+        }
     />
   </div>
 );
@@ -28,6 +38,8 @@ Input.propTypes = {
   error: T.string,
   inputClassName: T.string,
   placeholder: T.string,
+  value: T.string,
+  onChange: T.func,
 };
 
-export { Input };
+export default memo(Input);
