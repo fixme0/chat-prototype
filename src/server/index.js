@@ -3,7 +3,7 @@ import express from 'express';
 import { BASE_PATH } from '../packages/api';
 
 import { bootstrapDB } from './datebase';
-import { router } from './routes';
+import { router, routerWithAuth } from './routes';
 
 const app = express();
 
@@ -11,7 +11,7 @@ bootstrapDB();
 
 app.use(express.json());
 
-app.use(BASE_PATH, router);
+app.use(BASE_PATH, [router, routerWithAuth]);
 
 const PORT = 3000;
 

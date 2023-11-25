@@ -5,9 +5,12 @@ export const createUser = (userName) => {
   const user = new UserModel(userName);
 
   return connectToUsersTable()
-    .then((userDB) => {
-      userDB.set(user.id, user);
+    .then((table) => {
+      table.set(user.id, user);
 
       return user;
     });
 };
+
+export const getUser = (id) => connectToUsersTable()
+  .then((table) => table.get(id));

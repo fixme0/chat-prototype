@@ -6,7 +6,7 @@ export const bootstrapUsersTable = () => {
 
 export const connectToUsersTable = () => {
   if (!usersTable) {
-    return Promise.reject(new Error('The user data base is not initialized'));
+    return Promise.reject(new Error('The user table is not initialized'));
   }
 
   return Promise.resolve(usersTable);

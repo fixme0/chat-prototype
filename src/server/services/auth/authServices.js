@@ -9,7 +9,10 @@ export const createAuthToken = (user) => {
   ].join('');
 };
 
-export const autorizeUser = (token, user) => connectToAuthTable()
+export const authorizeUser = (token, user) => connectToAuthTable()
   .then((table) => {
     table.set(token, user.id);
   });
+
+export const getIsAuthorizedUser = (token) => connectToAuthTable()
+  .then((table) => table.get(token));
