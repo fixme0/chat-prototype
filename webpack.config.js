@@ -21,7 +21,7 @@ module.exports = () => ({
   devtool: isEnvProduction
     ? 'source-map'
     : false,
-  entry: path.resolve(appSrc, 'index.js'),
+  entry: appSrc,
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: isEnvProduction
@@ -65,7 +65,7 @@ module.exports = () => ({
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.scss', '.svg'],
     alias: {
       'react-dom$': 'react-dom/profiling',
       'scheduler/tracing': 'scheduler/tracing-profiling',
@@ -187,7 +187,10 @@ module.exports = () => ({
               importLoaders: 3,
               sourceMap: isEnvDevelopment,
               modules: {
-                mode: 'icss',
+                mode: 'local',
+                localIdentName: isEnvDevelopment
+                  ? '[path][name]__[local]'
+                  : '[hash:base64]',
               },
             },
           },
@@ -215,13 +218,39 @@ module.exports = () => ({
             },
           },
           {
-            loader: require.resolve('sass'),
+            loader: require.resolve('sass-loader'),
             options: {
               sourceMap: true,
             },
           },
         ],
         sideEffects: true,
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: require.resolve('@svgr/webpack'),
+            options: {
+              prettier: false,
+              svgo: false,
+              svgoConfig: {
+                plugins: [{ removeViewBox: false }],
+              },
+              titleProp: true,
+              ref: true,
+            },
+          },
+          {
+            loader: require.resolve('file-loader'),
+            options: {
+              name: 'media/[name].[hash].[ext]',
+            },
+          },
+        ],
+        issuer: {
+          and: [/\.(js|jsx)$/],
+        },
       },
     ],
   },
