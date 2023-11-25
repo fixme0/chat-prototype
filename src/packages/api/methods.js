@@ -38,7 +38,7 @@ const mockSendMessage = (message) => Promise.resolve({
 });
 
 export const sendMessage = mockSendMessage || ((message) => fetch(
-  ROUTES.SEND_MESSAGE,
+  ROUTES.MESSAGE,
   {
     body: JSON.stringify({ message }),
     headers: applyAuthHeader(BASE_HEADERS),

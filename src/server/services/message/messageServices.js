@@ -20,3 +20,8 @@ export const applyUserToMessage = (message) => getUser(message.user.id)
 
     return message;
   });
+
+export const getMessages = () => connectToMessagesTable()
+  .then((messages) => Promise.all(
+    messages.map((message) => applyUserToMessage(message)),
+  ));

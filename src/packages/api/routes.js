@@ -2,7 +2,7 @@ const BASE_PATH = '/api';
 
 const BASE_ROUTES = {
   LOGIN: '/login',
-  SEND_MESSAGE: '/message',
+  MESSAGE: '/message',
 };
 
 const ROUTES = Object

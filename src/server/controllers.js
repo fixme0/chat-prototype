@@ -1,5 +1,5 @@
 import { authorizeUser, createAuthToken } from './services/auth';
-import { applyUserToMessage, createMessage } from './services/message';
+import { applyUserToMessage, createMessage, getMessages } from './services/message';
 import { createUser } from './services/user';
 
 export const loginController = async (req, res) => {
@@ -24,4 +24,10 @@ export const addMessageController = async (req, res) => {
   const messageWithUser = await applyUserToMessage(message);
 
   res.json(messageWithUser);
+};
+
+export const getMessagesController = async (req, res) => {
+  const messages = await getMessages();
+
+  res.json(messages);
 };
