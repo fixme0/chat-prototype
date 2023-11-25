@@ -1,5 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import React from 'react';
+import { Provider } from 'react-redux';
+
+import { store } from './store';
 
 import { App } from './App';
 
@@ -9,4 +12,8 @@ global.document.body.appendChild(appNode);
 
 const root = createRoot(appNode);
 
-root.render(<App />);
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+);
