@@ -1,8 +1,16 @@
 const BASE_PATH = '/api';
 
-const ROUTES = {
-  LOGIN: `${BASE_PATH}/login`,
-  SEND_MESSAGE: `${BASE_PATH}/message`,
+const BASE_ROUTES = {
+  LOGIN: '/login',
+  SEND_MESSAGE: '/message',
 };
 
-export { ROUTES };
+const ROUTES = Object
+  .entries(BASE_ROUTES)
+  .reduce((acc, [routeName, basePath]) => {
+    acc[routeName] = `${BASE_PATH}${basePath}`;
+
+    return acc;
+  }, {});
+
+export { BASE_PATH, BASE_ROUTES, ROUTES };

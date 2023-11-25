@@ -1,3 +1,3 @@
 export * from './authToken';
 export * from './methods';
-export { ROUTES } from './routes';
+export { BASE_PATH, BASE_ROUTES, ROUTES } from './routes';

@@ -1,0 +1,6 @@
+{
+    "exec": "babel-node --config-file ./src/server/.babelrc ./src/server",
+    "ext": "js json",
+    "ignore": ["./node_modules", ".git", "./src/client", "./static"],
+    "watch": ["./src/server/", "./src/packages/api/"]
+}
