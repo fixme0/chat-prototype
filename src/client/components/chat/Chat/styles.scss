@@ -1,6 +1,8 @@
+$base-wrapper-height: 350;
+
 .root {
   width: 500px;
-  height: 350px;
+  height: $base-wrapper-height + px;
   background-color: rgba(128, 128, 128, 0.4);
   display: flex;
   flex-direction: column;
@@ -9,6 +11,8 @@
 .body {
   position: relative;
   flex-grow: 1;
+  height: $base-wrapper-height - 38.5 + px;
+  overflow: auto;
 }
 
 .footer {

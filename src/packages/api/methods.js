@@ -29,7 +29,7 @@ export const login = mockLogin || ((userName) => fetch(
 ));
 
 const mockSendMessage = (message) => Promise.resolve({
-  id: 1,
+  id: Date.now(),
   message,
   user: {
     id: 2,
