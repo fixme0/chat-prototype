@@ -11,53 +11,20 @@ import { Button, BTN_TYPES } from '../ui/Button';
 
 import { authorization } from './store/actions';
 
+import { useValidation } from './useValidation';
 import styles from './styles';
 
 const UserController = () => {
   const userName = useSelector(getUserName);
 
-  const [errors, setErrors] = useState({
-    name: '',
-    message: '',
-  });
   const [message, setMessage] = useState('');
 
   const dispatch = useDispatch();
-
-  const validateMessage = useCallback(
-    (nextMessage) => {
-      const isEmptyValue = !nextMessage;
-      const isMaxLength = nextMessage.length > 255;
-
-      const errorsList = [
-        isEmptyValue && 'Invalid Message',
-        isMaxLength && 'Maximum length of 255 characters',
-      ].filter(Boolean);
-      const [error = ''] = errorsList;
-
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        message: error,
-      }));
-
-      return errorsList;
-    },
-    [],
-  );
-
-  const validateName = useCallback((nextUserName) => {
-    const errorsList = [
-      !nextUserName && 'Invalid Name',
-    ].filter(Boolean);
-    const [error = ''] = errorsList;
-
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      name: error,
-    }));
-
-    return errorsList;
-  }, []);
+  const {
+    errors,
+    validateMessage,
+    validateName,
+  } = useValidation();
 
   const onUserNameChange = useCallback(
     (nextName) => {
