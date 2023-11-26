@@ -5,7 +5,9 @@ import classnames from 'classnames';
 import styles from './styles';
 
 const Input = ({
+  autoFocus = false,
   className,
+  disabled = false,
   error,
   inputClassName,
   placeholder,
@@ -19,7 +21,9 @@ const Input = ({
       </span>
     ) }
     <input
+      autoFocus={autoFocus}
       className={classnames(styles.input, inputClassName)}
+      disabled={disabled}
       placeholder={placeholder}
       value={value}
       onChange={
@@ -34,7 +38,9 @@ const Input = ({
 );
 
 Input.propTypes = {
+  autoFocus: T.bool,
   className: T.string,
+  disabled: T.bool,
   error: T.string,
   inputClassName: T.string,
   placeholder: T.string,

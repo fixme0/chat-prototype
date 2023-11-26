@@ -18,6 +18,7 @@ function* authorizationSaga({ payload }) {
     yield put(setAuthorized(true));
     yield put(sendMessage(message));
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
   }
 }

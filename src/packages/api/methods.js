@@ -11,37 +11,20 @@ const applyAuthHeader = (headers) => ({
   ...createAuthTokenHeader(getAuthToken()),
 });
 
-const mockLogin = (userName) => Promise.resolve({
-  authToken: '123',
-  user: {
-    id: 1,
-    name: userName,
-  },
-});
-
-export const login = mockLogin || ((userName) => fetch(
+export const login = (userName) => fetch(
   ROUTES.LOGIN,
   {
     body: JSON.stringify({ userName }),
     headers: BASE_HEADERS,
     method: 'POST',
   },
-));
+).then((response) => response.json());
 
-const mockSendMessage = (message) => Promise.resolve({
-  id: Date.now(),
-  message,
-  user: {
-    id: 2,
-    name: 'Test',
-  },
-});
-
-export const sendMessage = mockSendMessage || ((message) => fetch(
+export const sendMessage = (message) => fetch(
   ROUTES.MESSAGE,
   {
     body: JSON.stringify({ message }),
     headers: applyAuthHeader(BASE_HEADERS),
     method: 'POST',
   },
-));
+).then((response) => response.json());

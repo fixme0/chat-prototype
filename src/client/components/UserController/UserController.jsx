@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { sendMessage } from '../../services/messages';
 import {
+  getIsAuthenticated,
   getUserName,
   setUserName,
 } from '../../services/user';
@@ -15,6 +17,7 @@ import { useValidation } from './useValidation';
 import styles from './styles';
 
 const UserController = () => {
+  const isAuthenticated = useSelector(getIsAuthenticated);
   const userName = useSelector(getUserName);
 
   const [message, setMessage] = useState('');
@@ -42,9 +45,7 @@ const UserController = () => {
     [validateMessage],
   );
 
-  const onSubmit = useCallback((event) => {
-    event.preventDefault();
-
+  const onSubmitWithoutAuth = () => {
     const errorsList = [
       ...validateName(userName),
       ...validateMessage(message),
@@ -52,18 +53,43 @@ const UserController = () => {
 
     if (!errorsList.length) {
       dispatch(authorization(userName, message));
+      setMessage('');
     }
-  }, [dispatch, message, userName, validateMessage, validateName]);
+  };
+  const onSubmitWithAuth = () => {
+    const errorsList = validateMessage(message);
+
+    if (!errorsList.length) {
+      dispatch(sendMessage(message));
+      setMessage('');
+    }
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    if (isAuthenticated) {
+      onSubmitWithAuth();
+    } else {
+      onSubmitWithoutAuth();
+    }
+  };
 
   return (
     <form action="#" className={styles.form} onSubmit={onSubmit}>
       <Input
+        autoFocus
         className={styles.userNameControl}
+        disabled={isAuthenticated}
         error={errors.name}
         inputClassName={styles.userNameInput}
         placeholder="Nickname"
         value={userName}
-        onChange={onUserNameChange}
+        onChange={
+          isAuthenticated
+            ? undefined
+            : onUserNameChange
+        }
       />
       <Input
         className={styles.messageControl}

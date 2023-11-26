@@ -301,6 +301,13 @@ module.exports = () => ({
           warnings: false,
         },
       },
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000',
+          secure: false,
+          changeOrigin: true,
+        },
+      },
     })
     : undefined,
 });
