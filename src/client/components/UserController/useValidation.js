@@ -1,20 +1,16 @@
 import { useCallback, useState } from 'react';
 
+import { validateMessage, validateName } from '../../../packages/validation';
+
 export const useValidation = () => {
   const [errors, setErrors] = useState({
     name: '',
     message: '',
   });
 
-  const validateMessage = useCallback(
+  const validateMessageProxy = useCallback(
     (nextMessage) => {
-      const isEmptyValue = !nextMessage;
-      const isMaxLength = nextMessage.length > 255;
-
-      const errorsList = [
-        isEmptyValue && 'Invalid Message',
-        isMaxLength && 'Maximum length of 255 characters',
-      ].filter(Boolean);
+      const errorsList = validateMessage(nextMessage);
       const [error = ''] = errorsList;
 
       setErrors((prevErrors) => ({
@@ -27,10 +23,8 @@ export const useValidation = () => {
     [],
   );
 
-  const validateName = useCallback((nextUserName) => {
-    const errorsList = [
-      !nextUserName && 'Invalid Name',
-    ].filter(Boolean);
+  const validateNameProxy = useCallback((nextUserName) => {
+    const errorsList = validateName(nextUserName);
     const [error = ''] = errorsList;
 
     setErrors((prevErrors) => ({
@@ -43,7 +37,7 @@ export const useValidation = () => {
 
   return {
     errors,
-    validateMessage,
-    validateName,
+    validateMessage: validateMessageProxy,
+    validateName: validateNameProxy,
   };
 };
