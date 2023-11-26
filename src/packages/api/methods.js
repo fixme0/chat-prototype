@@ -28,3 +28,11 @@ export const sendMessage = (message) => fetch(
     method: 'POST',
   },
 ).then((response) => response.json());
+
+export const getMessages = () => fetch(
+  ROUTES.MESSAGE,
+  {
+    headers: BASE_HEADERS,
+    method: 'GET',
+  },
+).then((response) => response.json());

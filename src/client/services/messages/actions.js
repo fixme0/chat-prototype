@@ -11,3 +11,8 @@ export const sendMessage = createAction(
   `${PREFIX}/SEND`,
   (message) => ({ payload: message }),
 );
+
+export const setMessages = createAction(
+  `${PREFIX}/SET_MESSAGES`,
+  (messages) => ({ payload: messages }),
+);

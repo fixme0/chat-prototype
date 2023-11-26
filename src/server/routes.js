@@ -9,9 +9,9 @@ const router = express.Router();
 const routerWithAuth = express.Router();
 
 router.post(BASE_ROUTES.LOGIN, loginController);
+router.get(BASE_ROUTES.MESSAGE, getMessagesController);
 
 routerWithAuth.use(verifyToken);
-routerWithAuth.get(BASE_ROUTES.MESSAGE, getMessagesController);
 routerWithAuth.post(BASE_ROUTES.MESSAGE, addMessageController);
 
 export { router, routerWithAuth };

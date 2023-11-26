@@ -2,7 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { getMessages } from './services/messages';
-import { getIsAuthenticated } from './services/user';
+
+import { getIsFetchingMessages } from './store/selectors';
 
 import { RenderWhen } from './components/RenderWhen';
 import { Chat } from './components/chat/Chat';
@@ -11,13 +12,16 @@ import { State } from './components/chat/State';
 import { UserController } from './components/UserController';
 
 const App = () => {
-  const isAuthenticated = useSelector(getIsAuthenticated);
+  const isFetchingMessages = useSelector(getIsFetchingMessages);
   const messages = useSelector(getMessages);
 
   return (
     <Chat.Wrapper>
       <Chat.Body>
-        <RenderWhen isTrue={isAuthenticated}>
+        <RenderWhen isTrue>
+          <RenderWhen.If isTrue={isFetchingMessages}>
+            <State.Loading />
+          </RenderWhen.If>
           <RenderWhen.If isTrue={!!messages.length}>
             <Messages>
               {messages.map(({ id, message, user }) => (
@@ -31,7 +35,6 @@ const App = () => {
             <State.EmptyMessages />
           </RenderWhen.If>
         </RenderWhen>
-        {!isAuthenticated && <State.Login />}
       </Chat.Body>
       <Chat.Footer>
         <UserController />

@@ -4,7 +4,7 @@ import T from 'prop-types';
 import { withProps } from '../../../hocs/withProps';
 
 import { ReactComponent as EmptyMessagesIcon } from './icons/empty_messages';
-import { ReactComponent as LoginIcon } from './icons/login';
+import { ReactComponent as LoadingIcon } from './icons/loading';
 import styles from './styles';
 
 const State = ({ content, icon: Icon }) => (
@@ -21,12 +21,12 @@ State.propTypes = {
   icon: T.elementType,
 };
 
-const LoginState = withProps({
-  content: 'Enter your nickname to access the chat.',
-  icon: LoginIcon,
+const LoadingState = withProps({
+  content: 'Downloading messages, please wait',
+  icon: LoadingIcon,
 })(State);
 
-LoginState.displayName = 'LoginState';
+LoadingState.displayName = 'LoadingState';
 
 const EmptyMessagesState = withProps({
   content: 'Empty message list.',
@@ -36,6 +36,6 @@ const EmptyMessagesState = withProps({
 EmptyMessagesState.displayName = 'EmptyMessagesState';
 
 State.EmptyMessages = EmptyMessagesState;
-State.Login = LoginState;
+State.Loading = LoadingState;
 
 export { State };
