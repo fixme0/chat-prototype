@@ -4,10 +4,8 @@
 
 - Install nodejs >=16.14.2
 - run command the npm install ci
-- run command npm run start:app
-- run command npm run start:api
-- The interface is hosted at http://localhost:3001
-- The API is hosted at http://localhost:3000
+- run command npm run start:app The interface is hosted at http://localhost:3001
+- run command npm run start:api The API is hosted at http://localhost:3000
 
 ## Troubleshooting
 
