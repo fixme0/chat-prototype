@@ -23,3 +23,8 @@ export const verifyToken = async (req, res, next) => {
     });
   }
 };
+
+export const registerWSS = (wss) => (req, _, next) => {
+  req.wss = wss;
+  next();
+};

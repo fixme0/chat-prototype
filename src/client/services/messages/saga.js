@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { sendMessage } from '../../../packages/api';
 
-import { addMessage, sendMessage as sendMessageAction } from './actions';
+import { addMessage, completeSendingMessage, sendMessage as sendMessageAction } from './actions';
 
 function* sendMessageSaga({ payload: messageAsString }) {
   try {
@@ -10,7 +10,10 @@ function* sendMessageSaga({ payload: messageAsString }) {
 
     yield put(addMessage(message));
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error.message);
+  } finally {
+    yield put(completeSendingMessage());
   }
 }
 

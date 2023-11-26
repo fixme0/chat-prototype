@@ -1,7 +1,7 @@
 import { validateMessage, validateName } from '../packages/validation';
 
 import { authorizeUser, createAuthToken } from './services/auth';
-import { applyUserToMessage, createMessage, getMessages } from './services/message';
+import { buildMessage, createMessage, getMessages } from './services/message';
 import { createUser } from './services/user';
 
 export const loginController = async (req, res) => {
@@ -49,9 +49,10 @@ export const addMessageController = async (req, res) => {
   const { user } = req;
 
   const message = await createMessage(messageAsString, user.id);
-  const messageWithUser = await applyUserToMessage(message);
+  const messageWithUser = await buildMessage(message, { externalUser: user });
 
   res.json(messageWithUser);
+  req.wss.emitNewMessageCreated(messageWithUser, user);
 };
 
 export const getMessagesController = async (req, res) => {

@@ -4,6 +4,7 @@ class MessageModel {
     this.message = message;
     this.user = {
       id: userID,
+      isOwner: false,
     };
   }
 
@@ -12,6 +13,10 @@ class MessageModel {
       ...this.user,
       ...user,
     };
+  }
+
+  setIsOwner(externalUser) {
+    this.user.isOwner = this.user.id === externalUser.id;
   }
 }
 

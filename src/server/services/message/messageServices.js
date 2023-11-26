@@ -14,14 +14,31 @@ export const createMessage = (messageAsString, userID) => connectToMessagesTable
     return message;
   });
 
-export const applyUserToMessage = (message) => getUser(message.user.id)
+const applyUserToMessage = (message) => getUser(message.user.id)
   .then((user) => {
     message.extendUser(user);
 
     return message;
   });
 
+const setIsOwner = (message, externalUser) => {
+  message.setIsOwner(externalUser);
+
+  return message;
+};
+
+export const buildMessage = (initialMessage, { externalUser } = {}) => (
+  applyUserToMessage(initialMessage)
+    .then((message) => {
+      if (externalUser) {
+        return setIsOwner(message, externalUser);
+      }
+
+      return message;
+    })
+);
+
 export const getMessages = () => connectToMessagesTable()
   .then((messages) => Promise.all(
-    messages.map((message) => applyUserToMessage(message)),
+    messages.map((message) => buildMessage(message)),
   ));
