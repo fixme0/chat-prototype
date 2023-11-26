@@ -17,7 +17,7 @@ function* bootstrapAppSaga() {
   yield put(setMessages(messages));
   yield put(finishBootstrapMessages());
 
-  const socket = new WebSocket('ws://localhost:3000');
+  const socket = new WebSocket(`ws://${global.location.hostname}:3000`);
 
   const channel = yield eventChannel((emit) => {
     socket.onmessage = (event) => {
